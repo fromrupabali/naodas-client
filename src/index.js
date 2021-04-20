@@ -4,10 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
+
+import { serverUrl} from './utils/utils';
+
+const client = new ApolloClient({
+  link: createUploadLink({
+    uri: serverUrl
+  }),
+  cache: new InMemoryCache()
+});
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+      <App />
+</ApolloProvider>,
   document.getElementById('root')
 );
 
