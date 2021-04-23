@@ -3,7 +3,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Home from './containers/Home';
-import AddView from './containers/AddView';
+import AddView from './containers/AdView';
 import SignIn from './containers/UserControl/SignIn';
 import SignUp from './containers/UserControl/SignUp';
 import PublishAd from './containers/PublishAd';
