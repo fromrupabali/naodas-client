@@ -88,7 +88,8 @@ const EditButton = styled.button`
     outline: none;
     margin: 10px 0;
 `
-const userProfile = ()=>{
+const userProfile = (props)=>{
+ 
     return(
         <div>
           <Profile>
@@ -96,7 +97,7 @@ const userProfile = ()=>{
                 <Image src={Virat} alt="profile-image"/>
             </ImageContainer>
             <ProfileDetails>
-                <ProfileName>Virat Kohli</ProfileName>
+                <ProfileName>{props.user.userName}</ProfileName>
                 <Location><PinImage src={Pin} alt="location"/> Dhaka, Bangladesh</Location>  
                 <EditButton>Edit profile</EditButton>
             </ProfileDetails>

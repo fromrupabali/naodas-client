@@ -1,4 +1,7 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
+
+import axios from 'axios';
+import {serverUrl } from '../../../utils/utils';
 
 import Ad from './Ad';
 
@@ -63,6 +66,37 @@ font-weight: 500;
 font-size: 1.2em;
 `
 export default function Ads(){
+    const [complete, setComplete] = useState(false);
+    const [ads, setAds] = useState([]);
+
+    const fetchAds = async()=>{
+        const user = await axios.post(
+            serverUrl,
+            {
+                query:`
+                  query{
+                     userAds(token:"${localStorage.TOKEN}"){
+                         _id
+                     }
+                  }
+                `
+            }
+        );
+        setAds(user.data.data.userAds);
+        setComplete(true);
+    };
+    useEffect(()=>{
+      fetchAds();
+    },[]);
+
+    let allAds;
+    if(complete){
+       ads.length > 0 ?
+         allAds = ads.map(add =>{
+             return<Ad />
+         }):
+         allAds =<div style={{textAlign:"center", paddingTop:"100px"}}>No ads found!</div>
+    }
     return(
         <AdsContainer>
              <Title>Your Ads</Title>
@@ -90,11 +124,7 @@ export default function Ads(){
             </AdDetails>
              </Heading>
              <AllAds>
-                <Ad />
-                <Ad />
-                <Ad />
-                <Ad />
-                <Ad />
+                {allAds}
              </AllAds>
         </AdsContainer>
     );

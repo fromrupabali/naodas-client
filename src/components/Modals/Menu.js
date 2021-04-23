@@ -17,6 +17,10 @@ const Menu = styled.div`
     left: calc(74%);
     background: white;
     border-radius: 5px;
+    @media(min-width: 1600px){
+        width: 12%;
+        left: calc(68%);
+    }
 `
 
 const menuModal = (props) => (

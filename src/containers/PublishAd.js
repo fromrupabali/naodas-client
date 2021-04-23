@@ -18,6 +18,10 @@ const Container = styled.div`
   width: 80%;
   margin-left: 10%;
   padding-top: 100px;
+  @media(min-width: 1600px){
+    width: 60%;
+    margin-left: 20%;
+  }
 `;
 const AdBody = styled.div`
   width: 61%;
@@ -82,10 +86,14 @@ const ImagesContainer = styled.div`
   display: flex;
   flex-flow: wrap;
 `;
+// const mymove = styled.div`
+//    background: rgb(180, 177, 177);
+// `
 const ImageBox = styled.div`
   width: 14%;
   height: 100px;
   background: rgb(180, 177, 177);
+  
   @keyframes mymove {
     from {
       background-color: #e6e1e1;

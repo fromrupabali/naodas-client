@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Image1 from '../../../assets/1.jpg';
-import Image2 from '../../../assets/2.jpg';
-import Image3 from '../../../assets/3.jpg';
 import Pin from '../../../assets/pin.svg';
 
 import styled from 'styled-components';
@@ -101,39 +98,65 @@ const Price = styled.p`
    float: right;
    font-weight: 500;
 `
-const images =[Image1, Image2, Image3];
 
-function Watch(){
-    const [viewId, setViewId] = useState(1);
-    const allImages = images.map((image, id)=>{
-       if(id === viewId){
-          return<AddImageActive onMouseEnter={()=>{setViewId(id)}} src={images[id]} />
-       }
-        return<AddImage onMouseEnter={()=>{setViewId(id)}} src={images[id]} />
-    });
-    return(
-        <Container onMouseLeave={()=>{setViewId(0)}}>
-           <ImageContainer to="/view-add">
-               <Link to="/view-add">
-                  <Image src={images[viewId]} alt="img"/>
-               </Link>
-           </ImageContainer>
-           <Details>
-               <AddName>Canon 48-HD camera.</AddName>
-               <AddLocation><PinImage src={Pin} alt="location"/> Dhaka, Bangladesh</AddLocation>
-               <PriceDate>
-                   <Date>2 days ago</Date>
-                   <Price>USD 20</Price>
-               </PriceDate>
-           </Details>
-          <AddImages>
-            <AllImages>
-               {allImages}
-               {allImages}
-             </AllImages>
-          </AddImages>
-        </Container>
-    );
-};
-
-export default Watch;
+function Watch(props) {
+   const [viewId, setViewId] = useState(0);
+   let title;
+   if(props.ad.title.length < 25){
+      title = props.ad.title 
+   }else{
+      title = props.ad.title.substring(0,25) + '...'
+   }
+   const allImages = props.ad.images.map((image, id) => {
+     if (id === viewId) {
+       return (
+         <AddImageActive
+           key={id}
+           onMouseEnter={() => {
+             setViewId(id);
+           }}
+           src={props.ad.images[id]}
+         />
+       );
+     }
+     return (
+       <AddImage
+         key={id}
+         onMouseEnter={() => {
+           setViewId(id);
+         }}
+         src={props.ad.images[id]}
+       />
+     );
+   });
+   return (
+     <Container
+       onMouseLeave={() => {
+         setViewId(0);
+       }}
+     >
+       <ImageContainer to={"/view-ad/"+props.ad._id}>
+         <Link to={"/view-ad/"+props.ad._id}>
+           <Image src={props.ad.images[viewId]} alt="img" />
+         </Link>
+       </ImageContainer>
+       <Details>
+         <AddName>{title}</AddName>
+         <AddLocation>
+           <PinImage src={Pin} alt="location" /> {props.ad.city}, {props.ad.country}
+         </AddLocation>
+         <PriceDate>
+           <Date>2 days ago</Date>
+           <Price>USD {props.ad.price}</Price>
+         </PriceDate>
+       </Details>
+       <AddImages>
+         <AllImages>
+           {allImages}
+         </AllImages>
+       </AddImages>
+     </Container>
+   );
+ }
+ 
+ export default Watch;

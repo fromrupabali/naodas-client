@@ -95,6 +95,7 @@ function SignIn(){
                 );
                 if(user.data.data.signIn.success){
                     localStorage.setItem('TOKEN', user.data.data.signIn.token);
+                    localStorage.setItem('userId', user.data.data.signIn.userId);
                     setRedirect(<Redirect to="/"/>);
                 }else{
                     setMessage(user.data.data.signIn.error_message);

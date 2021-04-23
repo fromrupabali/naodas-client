@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import axios from 'axios';
+import {serverUrl } from '../utils/utils';
 
 import Navigation from '../components/Navigations/MainNavigation';
 import OutlasAdd from '../components/Adds/OutlasAdd';
-import Add from '../components/Adds/HomeAdd';
+import Ad from '../components/Adds/HomeAdd';
+import Skeleton from '../components/Skeletons/HomeSkeleton';
 import Footer from '../components/Footer';
 
 import styled from 'styled-components';
@@ -15,6 +19,10 @@ const HomeCanvas = styled.div`
     width: 80%;
     margin-left: 10%;
     padding-top: 100px;
+    @media(min-width: 1600px){
+        width: 60%;
+        margin-left: 20%;
+    }
 `
 const Title = styled.h1`
     font-size: 1.3em;
@@ -30,7 +38,52 @@ const AllAdds = styled.div`
     flex-flow: wrap;
     padding: 20px 0;
 `
+
 function Home(){
+    const [complete, setComplete] = useState(false);
+    const [ads, setAds] = useState([]);
+
+    const fetchAds = async()=>{
+        try {
+            const ads = await axios.post(
+                serverUrl,
+                {
+                   query:`
+                      query{
+                          homePageAds{
+                              _id
+                              title
+                              images
+                              city
+                              country
+                              user
+                              price
+                              images
+                          }
+                      }
+                   `
+                }
+            );
+            console.log("Home ads",ads);
+            setAds(ads.data.data.homePageAds);
+            setComplete(true);
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+    useEffect(()=>{
+        fetchAds()
+    },[]);
+    
+    let homeAds;
+    if(complete){
+        homeAds = ads.map(ad =>{
+            return<Ad key={ad._id}  ad={ad}/>
+        });
+    }else{
+        homeAds = <Skeleton />
+    }
     return(
         <HomeContainer>
             <Navigation /> 
@@ -38,22 +91,7 @@ function Home(){
                  <OutlasAdd />
                 <Title>Recently Added</Title>
                 <AllAdds>
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
-                    <Add />
+                   {homeAds}
                 </AllAdds>
             </HomeCanvas>
             <Footer />

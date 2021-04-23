@@ -8,6 +8,7 @@ import SignIn from './containers/UserControl/SignIn';
 import SignUp from './containers/UserControl/SignUp';
 import PublishAd from './containers/PublishAd';
 import Profile from './containers/UserControl/UserProfile';
+import SearchResult from './containers/searchResult';
 
 import './App.css';
 
@@ -16,11 +17,13 @@ function App() {
     <Router>
        <div className="App">
           <Route path="/" exact component={Home}/>
-          <Route path="/view-add" component={ AddView }/>
+          <Route path="/view-ad/:adId" component={ AddView }/>
           <Route path="/signin" exact component={ SignIn }/>
           <Route path="/signup" exact component={ SignUp }/>
           <Route path="/publish-post" exact component={PublishAd}/>
           <Route path="/user-profile" component={Profile}/>
+          <Route path="/search/:searchText" component={SearchResult}/>
+
        </div>
     </Router>
   );
