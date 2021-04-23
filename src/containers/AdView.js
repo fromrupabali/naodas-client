@@ -263,6 +263,10 @@ export default class AdView extends Component {
   };
   componentDidUpdate = (prevProps) => {
     if (this.props.match.params.adId !== prevProps.match.params.adId) {
+        this.setState({
+            complete: false
+        });
+        window.scrollTo(0,0);
       this.fetchAd();
     }
   };
