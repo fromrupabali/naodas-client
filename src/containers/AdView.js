@@ -1,15 +1,21 @@
 import React, { Component } from "react";
 
-import { NavLink, Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 import Navigation from "../components/Navigations/MainNavigation";
+import ReportModal from "../components/Modals/GeneralModal";
+import Header from "../components/Common/ModalHeader";
+
 
 import axios from "axios";
 import { serverUrl } from "../utils/utils";
 
-import styled from "styled-components";
 import OutlasAdd from "../components/Adds/OutlasAdd";
 import Ad from "../components/Adds/HomeAdd";
 import Footer from "../components/Footer";
+
+import styled from "styled-components";
+import "../App.css";
+
 const AddViewContainer = styled.div`
   width: 80%;
   margin-left: 10%;
@@ -96,11 +102,12 @@ const Info = styled.p`
   font-size: 1.1em;
 `;
 const Button = styled.button`
-  padding: 13px 45px;
+  padding: 13px 0;
+  width: 27%;
   background: #d7435e;
   color: white;
   font-weight: bold;
-  margin: 15px 0;
+  margin: 15px 2% 0 0;
   border: none;
   cursor: pointer;
   border-radius: 25px;
@@ -109,11 +116,28 @@ const Button = styled.button`
     background: #b92d47;
   }
 `;
-const Button2 = styled.button`
-  padding: 13px 45px;
+
+const ButtonOther = styled.button`
+  padding: 13px 0;
+  width: 27%;
   color: #d7435e;
   font-weight: bold;
-  margin: 15px 0;
+  margin: 15px 2% 0 0;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  outline: none;
+  border: 1px solid #d7435e;
+  &:hover {
+    color: #b92d47;
+  }
+`;
+const Button2 = styled.button`
+  padding: 13px 0;
+  width: 27%;
+  color: #d7435e;
+  font-weight: bold;
+  margin: 15px 1% 0 0;
   border: none;
   cursor: pointer;
   border-radius: 25px;
@@ -141,27 +165,27 @@ const WatchLink = styled(Link)`
     background: #b92d47;
   }
 `;
-const OthersContent = styled.div`
-  width: 100%;
-  height: 300px;
-  margin: 0 0 30px 0;
-`;
-const OthersNav = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-`;
-const NavItem = styled(NavLink)`
-  padding: 20px 10px 10px 10px;
-  margin-right: 20px;
-  text-decoration: none;
-  font-weight: 500;
-  color: black;
-  &:hover {
-    color: #b92d47;
-    border-bottom: 3px solid #b92d47;
-  }
-`;
+// const OthersContent = styled.div`
+//   width: 100%;
+//   height: 300px;
+//   margin: 0 0 30px 0;
+// `;
+// const OthersNav = styled.div`
+//   width: 100%;
+//   height: auto;
+//   display: flex;
+// `;
+// const NavItem = styled(NavLink)`
+//   padding: 20px 10px 10px 10px;
+//   margin-right: 20px;
+//   text-decoration: none;
+//   font-weight: 500;
+//   color: black;
+//   &:hover {
+//     color: #b92d47;
+//     border-bottom: 3px solid #b92d47;
+//   }
+// `;
 const OtherAdds = styled.div`
   width: 102%;
   height: auto;
@@ -170,6 +194,72 @@ const OtherAdds = styled.div`
   padding: 20px 0 40px 0;
 `;
 
+// const ButtonImage2 = styled.img`
+//   width: 20px;
+//   height: 20px;
+//   margin-top: 10px;
+// `;
+
+const ReportReason = styled.div`
+  width: 94%;
+  height: 40%;
+  padding: 0 3%;
+`;
+const ReasonTitle = styled.h2`
+  margin: 0;
+  padding: 0;
+  font-weight: 1.1em;
+  font-weight: 500;
+`;
+const ReasonSubTitle = styled.p`
+  margin: 0;
+  padding: 0;
+  color: gray;
+`;
+const ReportDetails = styled.div`
+  width: 94%;
+  height: 35%;
+
+  padding: 0 3%;
+`;
+const Description = styled.textarea`
+  width: 96%;
+  height: 90%;
+  padding: 2%;
+  resize: none;
+  border: 1px solid #eee;
+  outline: none;
+  border-radius: 5px;
+  font: inherit;
+  font-size: 15px;
+`;
+
+const reports = [
+  {
+    id: 1,
+    name: "Nadutity",
+  },
+  {
+    id: 2,
+    name: "Terrorism",
+  },
+  {
+    id: 3,
+    name: "Violance",
+  },
+  {
+    id: 4,
+    name: "Harrasment",
+  },
+  {
+    id: 5,
+    name: "Spam",
+  },
+  {
+    id: 6,
+    name: "False information",
+  },
+];
 export default class AdView extends Component {
   state = {
     viewId: 0,
@@ -177,6 +267,13 @@ export default class AdView extends Component {
     ad: {},
     otherAds: [],
     watch: false,
+    reportModal: false,
+    reportId: 0,
+  };
+  ReportModalHandler = () => {
+    this.setState({
+      reportModal: !this.state.reportModal,
+    });
   };
   fetchAd = async () => {
     try {
@@ -263,13 +360,19 @@ export default class AdView extends Component {
   };
   componentDidUpdate = (prevProps) => {
     if (this.props.match.params.adId !== prevProps.match.params.adId) {
-        this.setState({
-            complete: false
-        });
-        window.scrollTo(0,0);
+      this.setState({
+        complete: false,
+      });
+      window.scrollTo(0, 0);
       this.fetchAd();
     }
   };
+  reportIdHandler = (id) => {
+    this.setState({
+      reportId: id,
+    });
+  };
+
   render() {
     let allImages, watchButton, footer;
     if (this.state.complete) {
@@ -313,6 +416,42 @@ export default class AdView extends Component {
     }
     return (
       <div>
+        <ReportModal
+          show={this.state.reportModal}
+          close={this.ReportModalHandler}
+        >
+          <Header name="Report" cancelHandler={this.ReportModalHandler} />
+          <ReportReason>
+            <ReasonTitle>Please select a problem</ReasonTitle>
+            <ReasonSubTitle>
+              If someone is in immediate danger, get help before reporting to
+              Facebook. Don't wait.
+            </ReasonSubTitle>
+            {reports.map((report) =>
+              report.id === this.state.reportId ? (
+                <button
+                  onClick={() => this.reportIdHandler(report.id)}
+                  className="ActiveButton"
+                >
+                  {report.name}
+                </button>
+              ) : (
+                <button
+                  className="NotActiveButton"
+                  onClick={() => this.reportIdHandler(report.id)}
+                >
+                  {report.name}
+                </button>
+              )
+            )}
+          </ReportReason>
+          <ReportDetails>
+            <Description placeholder="Tell us details" />
+          </ReportDetails>
+          <div style={{ textAlign: "center" }}>
+            <Button>Submit</Button>
+          </div>
+        </ReportModal>
         <Navigation />
         {this.state.complete ? (
           <AddViewContainer>
@@ -339,9 +478,13 @@ export default class AdView extends Component {
                 <Info>Ad watching: {this.state.ad.watchingUsers.length}</Info>
                 <Info>Average ratings: 4.5/5</Info>
                 {watchButton}
+                <ButtonOther>Chat</ButtonOther>
+                <ButtonOther onClick={this.ReportModalHandler}>
+                  Report
+                </ButtonOther>
               </AddDetails>
             </AddContent>
-            <OthersContent>
+            {/* <OthersContent>
               <OthersNav>
                 <NavItem
                   to="/view-add"
@@ -384,7 +527,7 @@ export default class AdView extends Component {
                   Feedback
                 </NavItem>
               </OthersNav>
-            </OthersContent>
+            </OthersContent> */}
             <Title style={{ textTransform: " uppercase", fontSize: "1.3em" }}>
               Other adds of this seller
             </Title>

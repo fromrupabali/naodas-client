@@ -9,6 +9,8 @@ import SignUp from './containers/UserControl/SignUp';
 import PublishAd from './containers/PublishAd';
 import Profile from './containers/UserControl/UserProfile';
 import SearchResult from './containers/searchResult';
+import AdminPanel from './containers/AdminPanel/AdminPanel';
+import CategoryView from './containers/CategoryView';
 
 import './App.css';
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/publish-post" exact component={PublishAd}/>
           <Route path="/user-profile" component={Profile}/>
           <Route path="/search/:searchText" component={SearchResult}/>
+          <Route path="/admin" component={AdminPanel}/>
+          <Route path="/categories" component={CategoryView}/>
 
        </div>
     </Router>

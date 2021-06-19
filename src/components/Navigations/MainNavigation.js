@@ -7,7 +7,10 @@ import Virat from "../../assets/virat.png";
 import Message from "../../assets/message.png";
 import Notification from "../../assets/bell.png";
 
+import {Categories} from "../Common/CateroyList";
+
 import MenuModal from "../Modals/Menu";
+import CategoryModal from "../Modals/CategoryModal";
 
 import styled from "styled-components";
 
@@ -131,10 +134,27 @@ const MenuLink = styled(Link)`
     color: #b92d47;
   }
 `;
+
+const CatItem = styled(Link)`
+  width: 90%;
+  padding: 10px 5%;
+  margin-bottom: 10px;
+  display: block;
+  text-align: left;
+  border-radius: 5px;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+  &:hover {
+    background: #f8f8f8;
+  }
+`;
 function MainNavigation() {
   const [menu, setMenu] = useState(false);
   const [redirect, setRedirect] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const [catModal, setCatModal] = useState(false);
+
   let navRight, publishLink;
 
   const logOutHandler = () => {
@@ -143,10 +163,14 @@ function MainNavigation() {
     setMenu(false);
     setRedirect(<Redirect to="/" />);
   };
+  const catModalHandler = () => {
+    setCatModal(!catModal);
+  };
+
   const searchHandler = (e) => {
     if (e.keyCode === 13) {
       console.log("Searchtext", searchText);
-      setRedirect(<Redirect to={"/search/"+searchText}/>)
+      setRedirect(<Redirect to={"/search/" + searchText} />);
     }
   };
 
@@ -177,7 +201,7 @@ function MainNavigation() {
             <ButtonImage2 src={Message} alt="user" />
           </ButtonBox>
         </Button>
-        <Button>Ads</Button>
+        <Button onClick={catModalHandler}>Ads</Button>
         <Button>
           <NavItem exact to={publishLink} activeStyle={{ color: "#b92d47" }}>
             Publish ad
@@ -220,6 +244,22 @@ function MainNavigation() {
   return (
     <NavContainer>
       {redirect}
+      <CategoryModal show={catModal} clicked={catModalHandler}>
+        {
+          Categories.map(cat=>(
+            <CatItem key={cat.id} onClick={catModalHandler} to={"/categories/"+cat.id}>
+              {cat.name}
+            </CatItem>
+          ))
+        }
+        {/* <CatItem>Electroncs & Accessories</CatItem>
+        <CatItem>Mobile & TV</CatItem>
+        <CatItem>Jwellery</CatItem>
+        <CatItem>Computers</CatItem>
+        <CatItem>Groccery</CatItem>
+        <CatItem>Fruits</CatItem>
+        <CatItem>Kids & toy</CatItem> */}
+      </CategoryModal>
       <MenuModal
         clicked={() => {
           setMenu(!menu);
@@ -266,7 +306,9 @@ function MainNavigation() {
       <NavMain>
         <NavLeft>
           <LogoContainer>
-            <Link style={{textDecoration:"none"}} to="/"><Logo>NAODAS</Logo></Link>
+            <Link style={{ textDecoration: "none" }} to="/">
+              <Logo>NAODAS</Logo>
+            </Link>
           </LogoContainer>
           <SearchContainer>
             <Input

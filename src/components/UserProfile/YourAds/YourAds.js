@@ -75,13 +75,14 @@ export default function Ads(){
             {
                 query:`
                   query{
-                     userAds(token:"${localStorage.TOKEN}"){
+                    userAds(token:"${localStorage.TOKEN}"){
                          _id
                      }
                   }
                 `
             }
         );
+        console.log("User", user);
         setAds(user.data.data.userAds);
         setComplete(true);
     };

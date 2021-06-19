@@ -1,5 +1,5 @@
 .App {
-  background: #F8F8F8;
+  background: #f8f8f8;
   width: 100%;
   min-height: 100vh;
   /* color: #d8435e; */
@@ -30,7 +30,45 @@
 .App-link {
   color: #61dafb;
 }
+.ActiveButton {
+  padding: 13px 15px;
+  background: #d7435e;
+  color: white;
+  font-weight: bold;
+  margin: 15px 2% 0 0;
 
+  cursor: pointer;
+  border-radius: 25px;
+  outline: none;
+  border: 1px solid #d7435e;
+}
+.NotActiveButton {
+  padding: 13px 15px;
+  background: white;
+  border: 1px solid rgb(197, 193, 193);
+  font-weight: bold;
+  margin: 15px 2% 0 0;
+
+  cursor: pointer;
+  border-radius: 25px;
+  outline: none;
+}
+.PlanNotActive {
+  width: 200px;
+  padding: 13px;
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 25px;
+  cursor: pointer;
+}
+.PlanActive{
+  width: 200px;
+  padding: 13px;
+  color: #d7435e;
+  border: 1px solid#d7435e;
+  border-radius: 25px;
+  cursor: pointer;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
