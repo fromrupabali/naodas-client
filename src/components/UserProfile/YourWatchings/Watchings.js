@@ -4,6 +4,8 @@ import axios from 'axios';
 import {serverUrl } from '../../../utils/utils';
 
 import Watch from './Watch';
+import Skeleton from '../../Skeletons/CatSkeleton';
+
 import styled from 'styled-components';
 
 const WatchingsContainer = styled.div`
@@ -55,6 +57,8 @@ export default function Watchings(){
              return<Watch key={watch._id} ad={watch.ad}/>
          }):
          allAds =<div style={{textAlign:"center", paddingTop:"100px"}}>No ads found!</div>
+    }else{
+        allAds = <Skeleton />
     }
     return(
         <WatchingsContainer>

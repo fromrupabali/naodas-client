@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-
+import axios from "axios";
+import { serverUrl } from "../utils/utils";
 import {Link } from "react-router-dom";
+
 import Navigation from "../components/Navigations/MainNavigation";
 import ReportModal from "../components/Modals/GeneralModal";
 import Header from "../components/Common/ModalHeader";
-
-
-import axios from "axios";
-import { serverUrl } from "../utils/utils";
+// import Skeleton from '../components/Skeletons/SingleAd';
 
 import OutlasAdd from "../components/Adds/OutlasAdd";
 import Ad from "../components/Adds/HomeAdd";
@@ -538,7 +537,7 @@ export default class AdView extends Component {
             </OtherAdds>
             <OutlasAdd />
           </AddViewContainer>
-        ) : null}
+        ) : <p style={{paddingTop:"100px", textAlign:"center"}}>Loading....</p>}
         {footer}
       </div>
     );

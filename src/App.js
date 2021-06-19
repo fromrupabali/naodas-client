@@ -26,7 +26,7 @@ function App() {
           <Route path="/user-profile" component={Profile}/>
           <Route path="/search/:searchText" component={SearchResult}/>
           <Route path="/admin" component={AdminPanel}/>
-          <Route path="/categories" component={CategoryView}/>
+          <Route path="/categories/:catId" component={CategoryView}/>
 
        </div>
     </Router>

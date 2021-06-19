@@ -118,7 +118,9 @@ function UserProfile() {
              </Profile> */}
         </ProfileContainer>
       ) : (
-        <div style={{ minHeight: "100vh" }}></div>
+        <div style={{ minHeight: "100vh" }}>
+            <p style={{paddingTop:"150px", textAlign:"center"}}>Loading.....</p>
+        </div>
       )}
       <AddDiv>
         <Outlas />

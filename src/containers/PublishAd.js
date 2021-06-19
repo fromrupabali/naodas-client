@@ -6,7 +6,7 @@ import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
 
 import { serverUrl } from "../utils/utils";
-import {Categories} from "../components/Common/CateroyList";
+import { Categories } from "../components/Common/CateroyList";
 
 import Navigation from "../components/Navigations/MainNavigation";
 // import Outklas from "../components/Adds/OutlasAdd";
@@ -187,8 +187,8 @@ function PublishAd() {
   const [spinner, setSpinner] = useState(false);
   const [totalImages, setTotalImages] = useState(0);
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  // const [categoryId, setCategoryId] = useState("");
+  // const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState(0);
   const [images, setImages] = useState([]);
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
@@ -204,7 +204,7 @@ function PublishAd() {
   const [step, setStep] = useState(true);
   const [redirect, setRedirect] = useState(null);
   const [adLink, setAdlink] = useState(null);
-  const [imageUpload, setImageUpload] =useState(false);
+  const [imageUpload, setImageUpload] = useState(false);
 
   //List Category
   // const categories = [
@@ -238,12 +238,12 @@ function PublishAd() {
   //   },
   // ];
 
-  const categoryOptions = Categories.map((cat) => {
-    return <option value={cat.name}>{cat.name}</option>;
+  const categoryOptions = Categories.map((cat, id) => {
+    return <option value={id}>{cat.name}</option>;
   });
   const handleFileChange = (e) => {
     const files = e.target.files;
-    
+
     setTotalImages(e.target.files.length);
     setImageUpload(true);
     for (let i = 0; i < files.length; i++) {
@@ -330,21 +330,23 @@ function PublishAd() {
   const adHandler = async (e) => {
     try {
       e.preventDefault();
-      console.log("Title", title);
-      console.log("Category", category);
-      console.log("Images", images.length);
-      console.log("Country", country);
-      console.log("City", city);
-      console.log("Address", address);
-      console.log("Price", price);
-      console.log("Shipping Type", shippingType);
-      console.log("Contact type", contactType);
-      console.log("Quantity", quantity);
-      console.log("Plan Name", planName);
-      console.log("Plan days", days);
+      // console.log("Title", title);
+      // console.log("Category", category);
+      // console.log("Images", images.length);
+      // console.log("Country", country);
+      // console.log("City", city);
+      // console.log("Address", address);
+      // console.log("Price", price);
+      // console.log("Shipping Type", shippingType);
+      // console.log("Contact type", contactType);
+      // console.log("Quantity", quantity);
+      // console.log("Plan Name", planName);
+      // console.log("Plan days", days);
+      console.log("Cat name", Categories[categoryId].name);
+      console.log("Cat id", Categories[categoryId].id);
       if (
         title &&
-        category &&
+        categoryId &&
         images.length > 0 &&
         country &&
         city &&
@@ -360,8 +362,8 @@ function PublishAd() {
                      mutation{
                         createAd(input:{
                           title:"${title}",
-                          categoryName:"${category}",
-                          categoryId:"1",
+                          categoryName:"${Categories[categoryId].name}",
+                          categoryId:"${Categories[categoryId].id}",
                           subcategoryName:"{subCategory}",
                           subcategoryId:"1",
                           quantity:${quantity},
@@ -388,7 +390,7 @@ function PublishAd() {
         setSpinner(false);
         console.log("Created ad", ad);
         if (planName) {
-          window.scrollTo(0,0);
+          window.scrollTo(0, 0);
           setStep(false);
           setAdlink(ad.data.data.createAd._id);
         } else {
@@ -404,7 +406,7 @@ function PublishAd() {
     setTitle(e.target.value);
   };
   const categoryChangeHandler = (e) => {
-    setCategory(e.target.value);
+    setCategoryId(e.target.value);
     //    setCategoryId(catId);
   };
   const homePlanHandler = () => {
@@ -445,7 +447,7 @@ function PublishAd() {
                   <InputTitle>Category</InputTitle>
                   <SelectInput
                     required={true}
-                    value={category}
+                    value={categoryId}
                     onChange={categoryChangeHandler}
                   >
                     <option value="">Select Category</option>

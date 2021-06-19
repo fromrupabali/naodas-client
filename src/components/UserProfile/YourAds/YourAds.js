@@ -70,31 +70,36 @@ export default function Ads(){
     const [ads, setAds] = useState([]);
 
     const fetchAds = async()=>{
-        const user = await axios.post(
+        const ads = await axios.post(
             serverUrl,
             {
                 query:`
                   query{
                     userAds(token:"${localStorage.TOKEN}"){
                          _id
+                         images
+                         title
+                         watchingUsers
+                         quantity
                      }
                   }
                 `
             }
         );
-        console.log("User", user);
-        setAds(user.data.data.userAds);
+        console.log("User ads", ads);
+        setAds(ads.data.data.userAds);
         setComplete(true);
     };
     useEffect(()=>{
+      window.scrollTo(0,0);
       fetchAds();
     },[]);
 
     let allAds;
     if(complete){
        ads.length > 0 ?
-         allAds = ads.map(add =>{
-             return<Ad />
+         allAds = ads.map(ad =>{
+             return<Ad key={ad._id} ad={ad}/>
          }):
          allAds =<div style={{textAlign:"center", paddingTop:"100px"}}>No ads found!</div>
     }
