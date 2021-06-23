@@ -357,6 +357,7 @@ function PublishAd() {
         quantity
       ) {
         setSpinner(true);
+        let desc = description.replace(/(?:\r\n|\r|\n)/g, "");
         const ad = await axios.post(serverUrl, {
           query: `
                      mutation{
@@ -368,7 +369,7 @@ function PublishAd() {
                           subcategoryId:"1",
                           quantity:${quantity},
                           price:${price}
-                          description:"${description}",
+                          description:"${desc}",
                           images:${JSON.stringify(images).replace(
                             /"([^(")"]+)":/g,
                             "$1:"
