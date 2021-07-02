@@ -15,6 +15,8 @@ import Spinner from "../components/Modals/SpinnerModal";
 
 import styled from "styled-components";
 
+const nice = "Hello nice";
+
 const UPLOAD_FILE = gql`
   mutation uploadToAws($file: Upload!) {
     uploadToAws(file: $file) {
@@ -83,7 +85,7 @@ const Input = styled.input`
 `;
 const SelectInput = styled.select`
   width: 100%;
-  padding: 15px 2.5%;
+  padding: 15px 0;
   font-size: 15px;
   border: 1px solid #eee;
   border-radius: 5px;
