@@ -2,12 +2,13 @@ import React, { useState } from "react";
 
 import { NavLink, Link, Redirect } from "react-router-dom";
 
+
 // import Avatar from '../../assets/avatar.png';
 import Virat from "../../assets/virat.png";
 import Message from "../../assets/message.png";
 import Notification from "../../assets/bell.png";
 
-import {Categories} from "../Common/CateroyList";
+import { Categories } from "../Common/CateroyList";
 
 import MenuModal from "../Modals/Menu";
 import CategoryModal from "../Modals/CategoryModal";
@@ -21,6 +22,13 @@ const NavContainer = styled.div`
   background: white;
   position: fixed;
   border-bottom: 1px solid #eee;
+`;
+const DekstopNav = styled.div`
+  width: 100%;
+  height: 100%;
+  @media (max-width: 769px) {
+    display: none;
+  }
 `;
 const NavMain = styled.div`
   width: 80%;
@@ -149,6 +157,14 @@ const CatItem = styled(Link)`
     background: #f8f8f8;
   }
 `;
+
+const MobileNav = styled.div`
+  width: 100%;
+  height: 100%;
+  @media (min-width: 799px) {
+    display: none;
+  }
+`;
 function MainNavigation() {
   const [menu, setMenu] = useState(false);
   const [redirect, setRedirect] = useState(null);
@@ -244,83 +260,87 @@ function MainNavigation() {
   return (
     <NavContainer>
       {redirect}
-      <CategoryModal show={catModal} clicked={catModalHandler}>
-        {
-          Categories.map(cat=>(
-            <CatItem key={cat.id} onClick={catModalHandler} to={"/categories/"+cat.id}>
+      <DekstopNav>
+        <CategoryModal show={catModal} clicked={catModalHandler}>
+          {Categories.map((cat) => (
+            <CatItem
+              key={cat.id}
+              onClick={catModalHandler}
+              to={"/categories/" + cat.id}
+            >
               {cat.name}
             </CatItem>
-          ))
-        }
-        {/* <CatItem>Electroncs & Accessories</CatItem>
+          ))}
+          {/* <CatItem>Electroncs & Accessories</CatItem>
         <CatItem>Mobile & TV</CatItem>
         <CatItem>Jwellery</CatItem>
         <CatItem>Computers</CatItem>
         <CatItem>Groccery</CatItem>
         <CatItem>Fruits</CatItem>
         <CatItem>Kids & toy</CatItem> */}
-      </CategoryModal>
-      <MenuModal
-        clicked={() => {
-          setMenu(!menu);
-        }}
-        show={menu}
-      >
-        <MenuItem
-          onClick={() => {
+        </CategoryModal>
+        <MenuModal
+          clicked={() => {
             setMenu(!menu);
           }}
+          show={menu}
         >
-          <MenuLink to="/user-profile">View Profile</MenuLink>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setMenu(!menu);
-          }}
-        >
-          <MenuLink>Inbox</MenuLink>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setMenu(!menu);
-          }}
-        >
-          <MenuLink to="/user-profile/ads">My Ads</MenuLink>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setMenu(!menu);
-          }}
-        >
-          <MenuLink to="/user-profile/watching">Watchings</MenuLink>
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            setMenu(!menu);
-          }}
-        >
-          <MenuLink to="/user-profile">Privacy & settings</MenuLink>
-        </MenuItem>
-        <MenuItem onClick={logOutHandler}>Log out</MenuItem>
-      </MenuModal>
-      <NavMain>
-        <NavLeft>
-          <LogoContainer>
-            <Link style={{ textDecoration: "none" }} to="/">
-              <Logo>NAODAS</Logo>
-            </Link>
-          </LogoContainer>
-          <SearchContainer>
-            <Input
-              onKeyDown={searchHandler}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              placeholder="Search Ads"
-            />
-          </SearchContainer>
-        </NavLeft>
-        {navRight}
-      </NavMain>
+          <MenuItem
+            onClick={() => {
+              setMenu(!menu);
+            }}
+          >
+            <MenuLink to="/user-profile">View Profile</MenuLink>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setMenu(!menu);
+            }}
+          >
+            <MenuLink>Inbox</MenuLink>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setMenu(!menu);
+            }}
+          >
+            <MenuLink to="/user-profile/ads">My Ads</MenuLink>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setMenu(!menu);
+            }}
+          >
+            <MenuLink to="/user-profile/watching">Watchings</MenuLink>
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              setMenu(!menu);
+            }}
+          >
+            <MenuLink to="/user-profile">Privacy & settings</MenuLink>
+          </MenuItem>
+          <MenuItem onClick={logOutHandler}>Log out</MenuItem>
+        </MenuModal>
+        <NavMain>
+          <NavLeft>
+            <LogoContainer>
+              <Link style={{ textDecoration: "none" }} to="/">
+                <Logo>NAODAS</Logo>
+              </Link>
+            </LogoContainer>
+            <SearchContainer>
+              <Input
+                onKeyDown={searchHandler}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="Search Ads"
+              />
+            </SearchContainer>
+          </NavLeft>
+          {navRight}
+        </NavMain>
+      </DekstopNav>
     </NavContainer>
   );
 }

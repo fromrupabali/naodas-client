@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 102%;
-  height: 1000px;
+  height: auto;
   display: flex;
   flex-flow: wrap;
 `;
@@ -31,23 +31,28 @@ const Ad = styled.div`
   text-decoration: none;
   color: black;
   cursor: pointer;
-  
+  @media (max-width: 789px) {
+    width: 48%;
+    height: 230px;
+  }
 `;
 const homeSkeleton = () => {
-  return<Container>
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-            <Ad />
-       </Container>;
+  return (
+    <Container>
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+      <Ad />
+    </Container>
+  );
 };
 
 export default homeSkeleton;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 102%;
-  height: 1000px;
+  height: auto;
   display: flex;
   flex-flow: wrap;
 `;
@@ -13,7 +13,7 @@ const Container = styled.div`
 // `
 
 const Ad = styled.div`
-  width: 31%;
+  width: 23%;
   height: 300px;
   background: rgb(180, 177, 177);
   @keyframes mymove {
@@ -39,14 +39,6 @@ const Ad = styled.div`
 const homeSkeleton = () => {
   return (
     <Container>
-      <Ad />
-      <Ad />
-      <Ad />
-      <Ad />
-      <Ad />
-      <Ad />
-      <Ad />
-      <Ad />
       <Ad />
       <Ad />
       <Ad />

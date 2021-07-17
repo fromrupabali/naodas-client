@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { serverUrl } from "../utils/utils";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Navigation from "../components/Navigations/MainNavigation";
 import ReportModal from "../components/Modals/GeneralModal";
@@ -16,23 +16,24 @@ import styled from "styled-components";
 import "../App.css";
 
 const AddViewContainer = styled.div`
-  width: 80%;
-  margin-left: 10%;
-  padding-top: 100px;
-  @media (min-width: 1600px) {
-    width: 60%;
-    margin-left: 20%;
-  }
+  width: 100%;
 `;
 const AddContent = styled.div`
   width: 100%;
   height: 600px;
   padding: 0 0 1% 0;
+  @media (max-width: 789px) {
+    height: auto;
+    padding: 0 0 80px 0;
+  }
 `;
 const AddImages = styled.div`
   width: 50%;
   height: 100%;
   float: left;
+  @media (max-width: 789px) {
+    width: 100%;
+  }
 `;
 const ImageView = styled.div`
   width: 100%;
@@ -74,6 +75,11 @@ const AddDetails = styled.div`
   width: 47%;
   height: 100%;
   float: right;
+  padding-bottom: 60px;
+  @media (max-width: 789px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 const Title = styled.h1`
   margin: 0;
@@ -185,6 +191,18 @@ const WatchLink = styled(Link)`
 //     border-bottom: 3px solid #b92d47;
 //   }
 // `;
+
+const OtherTitle = styled.div`
+  margin: 0;
+  padding: 50px 0 0 0;
+  font-weight: 500;
+  font-size: 1.3em;
+  text-transform: uppercase;
+  @media (max-width: 798px) {
+    font-size: 1em;
+   
+  }
+`;
 const OtherAdds = styled.div`
   width: 102%;
   height: auto;
@@ -451,7 +469,6 @@ export default class AdView extends Component {
             <Button>Submit</Button>
           </div>
         </ReportModal>
-        <Navigation />
         {this.state.complete ? (
           <AddViewContainer>
             <AddContent>
@@ -527,9 +544,7 @@ export default class AdView extends Component {
                 </NavItem>
               </OthersNav>
             </OthersContent> */}
-            <Title style={{ textTransform: " uppercase", fontSize: "1.3em" }}>
-              Other adds of this seller
-            </Title>
+            <OtherTitle>Other adds of this seller</OtherTitle>
             <OtherAdds>
               {this.state.otherAds.map((ad) => {
                 return <Ad key={ad._id} ad={ad} />;
@@ -537,7 +552,11 @@ export default class AdView extends Component {
             </OtherAdds>
             <OutlasAdd />
           </AddViewContainer>
-        ) : <p style={{paddingTop:"100px", textAlign:"center"}}>Loading....</p>}
+        ) : (
+          <p style={{ paddingTop: "100px", textAlign: "center" }}>
+            Loading....
+          </p>
+        )}
         {footer}
       </div>
     );

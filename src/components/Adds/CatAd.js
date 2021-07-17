@@ -55,10 +55,17 @@ const Container = styled.div`
   &:hover ${AddImages} {
     display: block;
   }
+  @media (max-width: 769px) {
+    width: 48%;
+    height: 230px;
+  }
 `;
 const ImageContainer = styled.div`
   width: 100%;
   height: 60%;
+  @media (max-width: 769px) {
+    height: 53%;
+  }
 `;
 const Image = styled.img`
   width: 100%;
@@ -74,10 +81,17 @@ const AddName = styled.h3`
 const AddLocation = styled.p`
   margin: 0;
   padding: 0 0 4% 0;
+  @media (max-width: 769px) {
+    font-size: 0.8em;
+  }
 `;
 const PinImage = styled.img`
   width: 13px;
   height: 15px;
+  @media (max-width: 769px) {
+    width: 10px;
+    height: 13px;
+  }
 `;
 const PriceDate = styled.div`
   width: 100%;
@@ -88,6 +102,9 @@ const Date = styled.p`
   padding: 2px 0;
   color: gray;
   float: left;
+  @media (max-width: 769px) {
+    font-size: 0.9em;
+  }
 `;
 const Price = styled.p`
   font-size: 1.2em;
@@ -96,6 +113,10 @@ const Price = styled.p`
   color: #d7435e;
   float: right;
   font-weight: 500;
+  @media (max-width: 769px) {
+    font-size: 1em;
+    margin: 3px 0 0 0;
+  }
 `;
 
 function HomeAdd(props) {

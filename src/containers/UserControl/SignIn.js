@@ -12,13 +12,12 @@ import styled from 'styled-components';
 const SignInContainer = styled.div`
     width: 100%;
     height: auto;
-    padding-top: 7%;
 `
 const SignInMain = styled.div`
-    width: 27%;
+    width: 35%;
     height: auto;
     background: white;
-    margin-left: 34%;
+    margin-left: 31%;
     border-radius: 5px;
     text-align: center;
     padding: 2%;
@@ -113,7 +112,6 @@ function SignIn(){
             <Spinner show={spinner}>
                 Hi
             </Spinner>
-            <Navigation />
             <SignInContainer>
                 <SignInMain>
                     <Title>Sign in</Title>

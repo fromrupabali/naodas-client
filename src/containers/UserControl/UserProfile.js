@@ -16,14 +16,8 @@ import Outlas from "../../components/Adds/OutlasAdd";
 import styled from "styled-components";
 
 const ProfileContainer = styled.div`
-  width: 80%;
+  width: 100%;
   min-height: 100vh;
-  margin-left: 10%;
-  padding-top: 100px;
-  @media (min-width: 1600px) {
-    width: 60%;
-    margin-left: 20%;
-  }
 `;
 const LeftNav = styled.div`
   width: 20%;
@@ -90,7 +84,7 @@ function UserProfile() {
   ];
   return (
     <div>
-      <Navigation />
+    
       {complete ? (
         <ProfileContainer>
           <LeftNav>

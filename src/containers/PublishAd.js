@@ -25,14 +25,8 @@ const UPLOAD_FILE = gql`
   }
 `;
 const Container = styled.div`
-  width: 80%;
-  margin-left: 10%;
-  padding-top: 100px;
+  width: 100%;
   min-height: 100vh;
-  @media (min-width: 1600px) {
-    width: 60%;
-    margin-left: 20%;
-  }
 `;
 const AdBody = styled.div`
   width: 61%;
@@ -41,6 +35,10 @@ const AdBody = styled.div`
   border-radius: 5px;
   margin: 0 0 40px 14%;
   padding: 2% 5%;
+  @media (max-width: 789px) {
+    width: 90%;
+    margin: 0;
+  }
 `;
 const Title = styled.h3`
   text-align: center;
@@ -106,6 +104,9 @@ const ImagesContainer = styled.div`
   margin-top: 10px;
   display: flex;
   flex-flow: wrap;
+  @media (max-width: 789px) {
+    width: 109%;
+  }
 `;
 // const mymove = styled.div`
 //    background: rgb(180, 177, 177);
@@ -126,12 +127,20 @@ const ImageBox = styled.div`
   animation: mymove 1s infinite;
   margin: 0 2% 2% 0;
   border-radius: 5px;
+  @media (max-width: 789px) {
+    width: 45%;
+    height: 150px;
+  }
 `;
 const Image = styled.img`
   width: 30%;
   height: 200px;
   margin: 0 2% 2% 0;
   border-radius: 5px;
+  @media (max-width: 789px) {
+    width: 45%;
+    height: 150px;
+  }
 `;
 
 const Description = styled.textarea`
@@ -168,6 +177,9 @@ const Plan = styled.div`
   text-align: center;
   cursor: pointer;
   border: 2px solid #eee;
+  @media (max-width: 789px) {
+    width: 90%;
+  }
 `;
 const PlanTitle = styled.h3`
   margin: 0;
@@ -420,14 +432,21 @@ function PublishAd() {
     setPlanName(false);
     setDays(0);
   };
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  // useEffect(() => {
+  //   window.scroll({
+  //     top: 0,
+  //     left: 0,
+  //     behavior: "smooth",
+  //   });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // });
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       {redirect}
       <Spinner show={spinner} />
-      <Navigation />
       <Container>
         {/* <Outklas /> */}
 
@@ -725,7 +744,7 @@ function PublishAd() {
           </div>
         )}
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

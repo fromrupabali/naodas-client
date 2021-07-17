@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 import { serverUrl } from "../utils/utils";
@@ -22,15 +22,29 @@ const MainBody = styled.div`
   height: auto;
 `;
 const CategoryContainer = styled.div`
-  width: 81.7%;
+  width: 102%;
   height: 85%;
-  padding-top: 100px;
-  margin-left: 10%;
 `;
 const CategoyNav = styled.div`
   width: 20%;
   height: 85vh;
   float: left;
+  @media (max-width: 798px) {
+    display: none;
+  }
+`;
+const MobileCatNav = styled.div`
+  width: 100%;
+  height: 60px;
+  display: flex;
+  margin-bottom: 20px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 const CategoryMain = styled.div`
   width: 76%;
@@ -39,12 +53,16 @@ const CategoryMain = styled.div`
   border-radius: 5px;
   display: flex;
   flex-flow: wrap;
+  @media (max-width: 798px) {
+    width: 100%;
+  }
 `;
 
 export default class CategoryView extends Component {
   state = {
     complete: false,
     ads: [],
+    redirect: null,
   };
   fetchAds = async () => {
     try {
@@ -80,6 +98,12 @@ export default class CategoryView extends Component {
   };
 
   componentDidMount = () => {
+    console.log("Hii", this.props.match.params.catId);
+    if (!this.props.match.params.catId) {
+      this.setState({
+        redirect: <Redirect to="/categories/1" />,
+      });
+    }
     this.fetchAds();
   };
   componentDidUpdate = (prevProps) => {
@@ -98,9 +122,14 @@ export default class CategoryView extends Component {
     }
     return (
       <Container>
+        {this.state.redirect}
         <MainBody>
-          <Navigation />
           <CategoryContainer>
+            <MobileCatNav>
+              {Categories.map((nav) => {
+                return <NavItem key={nav.id} name={nav.name} to={nav.to} />;
+              })}
+            </MobileCatNav>
             <CategoyNav>
               {Categories.map((nav) => {
                 return <NavItem key={nav.id} name={nav.name} to={nav.to} />;

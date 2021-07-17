@@ -1,28 +1,20 @@
 import React from "react";
 
-import { Route } from 'react-router-dom';
+import { Route } from "react-router-dom";
 
 import Navigation from "../../components/AdminPanel/Navigation";
 import NavItem from "../../components/UserProfile/NavItem";
-import Ads from '../../components/AdminPanel/Ads/Ads';
-import Users from '../../components/AdminPanel/Users/Users';
-import Reports from '../../components/AdminPanel/Reports/Reports';
-
+import Ads from "../../components/AdminPanel/Ads/Ads";
+import Users from "../../components/AdminPanel/Users/Users";
+import Reports from "../../components/AdminPanel/Reports/Reports";
 
 import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background: #f0f2f5;
 `;
 
-const AdminContainer = styled.div`
-  width: 85%;
-  height: 85%;
-  padding-top: 6%;
-  margin-left: 7%;
-`;
 const AdminSidebar = styled.div`
   width: 20%;
   height: 100%;
@@ -56,19 +48,16 @@ function Admin() {
   ];
   return (
     <Container>
-      <Navigation />
-      <AdminContainer>
-        <AdminSidebar>
-          {navItems.map((nav) => {
-            return <NavItem key={nav.id} name={nav.name} to={nav.to} />;
-          })}
-        </AdminSidebar>
-        <AdminMain>
-            <Route path="/admin" exact component={Ads}/>
-            <Route path="/admin/users" exact component={Users}/>
-            <Route path="/admin/reports" exact component={Reports}/>
-        </AdminMain>
-      </AdminContainer>
+      <AdminSidebar>
+        {navItems.map((nav) => {
+          return <NavItem key={nav.id} name={nav.name} to={nav.to} />;
+        })}
+      </AdminSidebar>
+      <AdminMain>
+        <Route path="/admin" exact component={Ads} />
+        <Route path="/admin/users" exact component={Users} />
+        <Route path="/admin/reports" exact component={Reports} />
+      </AdminMain>
     </Container>
   );
 }

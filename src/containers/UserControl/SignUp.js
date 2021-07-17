@@ -14,13 +14,13 @@ import styled from 'styled-components';
 const SignUpContainer = styled.div`
     width: 100%;
     height: auto;
-    padding-top: 7%;
+    
 `
 const SignUpMain = styled.div`
-    width: 27%;
+    width: 35%;
     height: auto;
     background: white;
-    margin-left: 34%;
+    margin-left: 31%;
     border-radius: 5px;
     text-align: center;
     padding: 2%;
@@ -114,7 +114,7 @@ function SignUp(){
         <div>
             <Spinner show={spinner}/>
             {redirect}
-            <Navigation />
+            
             <SignUpContainer>
                 <SignUpMain>
                     <Title>Sign up</Title>

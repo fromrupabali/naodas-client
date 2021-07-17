@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Timestamp from "react-timestamp";
+
 import Pin from "../../assets/pin.svg";
 import styled from "styled-components";
 
@@ -55,10 +57,17 @@ const Container = styled.div`
   &:hover ${AddImages} {
     display: block;
   }
+  @media (max-width: 769px) {
+    width: 48%;
+    height: 230px;
+  }
 `;
 const ImageContainer = styled.div`
   width: 100%;
   height: 60%;
+  @media (max-width: 769px) {
+    height: 53%;
+  }
 `;
 const Image = styled.img`
   width: 100%;
@@ -74,10 +83,17 @@ const AddName = styled.h3`
 const AddLocation = styled.p`
   margin: 0;
   padding: 0 0 4% 0;
+  @media (max-width: 769px) {
+    font-size: 0.8em;
+  }
 `;
 const PinImage = styled.img`
   width: 13px;
   height: 15px;
+  @media (max-width: 769px) {
+    width: 10px;
+    height: 13px;
+  }
 `;
 const PriceDate = styled.div`
   width: 100%;
@@ -88,6 +104,9 @@ const Date = styled.p`
   padding: 2px 0;
   color: gray;
   float: left;
+  @media (max-width: 769px) {
+    font-size: 0.9em;
+  }
 `;
 const Price = styled.p`
   font-size: 1.2em;
@@ -96,15 +115,19 @@ const Price = styled.p`
   color: #d7435e;
   float: right;
   font-weight: 500;
+  @media (max-width: 769px) {
+    font-size: 1em;
+    margin: 3px 0 0 0;
+  }
 `;
 
 function HomeAdd(props) {
   const [viewId, setViewId] = useState(0);
   let title;
-  if(props.ad.title.length < 25){
-     title = props.ad.title 
-  }else{
-     title = props.ad.title.substring(0,25) + '...'
+  if (props.ad.title.length < 25) {
+    title = props.ad.title;
+  } else {
+    title = props.ad.title.substring(0, 25) + "...";
   }
   const allImages = props.ad.images.map((image, id) => {
     if (id === viewId) {
@@ -134,25 +157,26 @@ function HomeAdd(props) {
         setViewId(0);
       }}
     >
-      <ImageContainer to={"/view-ad/"+props.ad._id}>
-        <Link to={"/view-ad/"+props.ad._id}>
+      <ImageContainer to={"/view-ad/" + props.ad._id}>
+        <Link to={"/view-ad/" + props.ad._id}>
           <Image src={props.ad.images[viewId]} alt="img" />
         </Link>
       </ImageContainer>
       <Details>
         <AddName>{title}</AddName>
         <AddLocation>
-          <PinImage src={Pin} alt="location" /> {props.ad.city}, {props.ad.country}
+          <PinImage src={Pin} alt="location" /> {props.ad.city},{" "}
+          {props.ad.country}
         </AddLocation>
         <PriceDate>
-          <Date>2 days ago</Date>
+          <Date>
+            <Timestamp relative date={props.ad.createdAt} autoUpdate />
+          </Date>
           <Price>USD {props.ad.price}</Price>
         </PriceDate>
       </Details>
       <AddImages>
-        <AllImages>
-          {allImages}
-        </AllImages>
+        <AllImages>{allImages}</AllImages>
       </AddImages>
     </Container>
   );
