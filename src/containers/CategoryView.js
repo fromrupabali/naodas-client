@@ -16,10 +16,12 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 100%;
   height: auto;
+
 `;
 const MainBody = styled.div`
   width: 100%;
   height: auto;
+  padding-bottom: 50px;
 `;
 const CategoryContainer = styled.div`
   width: 102%;
@@ -43,6 +45,9 @@ const MobileCatNav = styled.div`
   white-space: nowrap;
 
   &::-webkit-scrollbar {
+    display: none;
+  }
+  @media (min-width: 798px) {
     display: none;
   }
 `;
@@ -148,70 +153,3 @@ export default class CategoryView extends Component {
     );
   }
 }
-
-// function Admin(props) {
-//   const [complete, setComplete] = useState(false);
-//   const [ads, setAds] = useState([]);
-
-//   const fetchAds = async () => {
-//     try {
-//       const ads = await axios.post(serverUrl, {
-//         query: `
-//                       query{
-//                         categoryAds(catId:"${props.match.params.catId}"){
-//                               _id
-//                               title
-//                               images
-//                               city
-//                               country
-//                               user
-//                               price
-//                               images
-//                           }
-//                       }
-//                    `,
-//       });
-//       console.log("Home ads", ads);
-//       setAds(ads.data.data.categoryAds);
-//       setComplete(true);
-//     } catch (error) {
-//       throw error;
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchAds();
-//   }, [props.match.params.catId]);
-
-//   let homeAds;
-//   if (complete) {
-//     homeAds = ads.map((ad) => {
-//       return <Ad key={ad._id} ad={ad} />;
-//     });
-//   } else {
-//     homeAds = <Skeleton />;
-//   }
-//   return (
-//     <Container>
-//       <MainBody>
-//         <Navigation />
-//         <CategoryContainer>
-//           <CategoyNav>
-//             {Categories.map((nav) => {
-//               return <NavItem key={nav.id} name={nav.name} to={nav.to} />;
-//             })}
-//           </CategoyNav>
-//           <CategoryMain>
-//             {/* <Route path="/admin" exact component={Ads}/>
-//             <Route path="/admin/users" exact component={Users}/>
-//             <Route path="/admin/reports" exact component={Reports}/> */}
-//             {homeAds}
-//           </CategoryMain>
-//         </CategoryContainer>
-//       </MainBody>
-//       {/* <Footer /> */}
-//     </Container>
-//   );
-// }
-
-// export default Admin;

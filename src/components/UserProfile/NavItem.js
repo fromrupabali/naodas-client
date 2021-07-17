@@ -19,7 +19,7 @@ const Item = styled(NavLink)`
   }
 
   @media (max-width: 798px) {
-    padding: 10px 30px;
+    padding: 13px 30px;
     margin-right: 10px;
     border-radius: 25px;
   }
