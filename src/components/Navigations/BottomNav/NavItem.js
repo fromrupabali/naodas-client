@@ -18,7 +18,7 @@ const Title = styled.p`
 `;
 const Icon = styled.p`
   margin: 0;
-  padding: 10px 0 0 0;
+  padding: 7px 0 0 0;
 `;
 const IconAd = styled.p`
   margin: 0;
