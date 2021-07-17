@@ -26,7 +26,7 @@ const AppContent = styled.div`
 `;
 const BottomNav = styled.div`
   width: 100%;
-  height: 56px;
+  height: 50px;
   background: white;
   bottom: 0;
   position: fixed;

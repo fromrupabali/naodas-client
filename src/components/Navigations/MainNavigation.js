@@ -22,6 +22,9 @@ const NavContainer = styled.div`
   background: white;
   position: fixed;
   border-bottom: 1px solid #eee;
+  @media(max-width: 789px){
+    height: 50px;
+  }
 `;
 const DekstopNav = styled.div`
   width: 100%;
